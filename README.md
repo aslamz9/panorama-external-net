@@ -64,14 +64,14 @@ export PANORAMA_API_KEY="PASTE_YOUR_KEY_HERE"
 * **Via PowerShell:** Run the command below, then **restart your terminal or IDE** so it loads the new setting:
   ```powershell
   [System.Environment]::SetEnvironmentVariable("PANORAMA_API_KEY", "PASTE_YOUR_KEY_HERE", "User")
-  [System.Environment]::SetEnvironmentVariable("PANORAMA_HOST", "192.168.1.250", "User")
+  [System.Environment]::SetEnvironmentVariable("PANORAMA_HOST", "192.168.1.X", "User")
   ```
 * **Via Windows Settings:** Search **Edit environment variables for your account** > under **User variables**, click **New...** > add `PANORAMA_API_KEY` and `PANORAMA_HOST` > click **OK** > restart your terminal.
 
 **Linux / macOS:**
 Add the `export` lines to your shell profile (`~/.bashrc` or `~/.zshrc`) and reload it:
 ```bash
-echo 'export PANORAMA_HOST="192.168.1.250"' >> ~/.bashrc
+echo 'export PANORAMA_HOST="192.168.1.X"' >> ~/.bashrc
 echo 'export PANORAMA_API_KEY="PASTE_YOUR_KEY_HERE"' >> ~/.bashrc
 source ~/.bashrc
 ```
