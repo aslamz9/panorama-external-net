@@ -14,39 +14,81 @@ In Palo Alto Networks firewalls, security policies and NAT rules often need to m
 * `requests` library (`pip install -r requirements.txt`)
 * Panorama admin account with **REST API** and **XML API** permissions enabled
 
-## Quick Start
+---
 
-### 1. Clone the Repository & Install Dependencies
+## Step 1: Clone the Repository & Install Dependencies
 ```bash
 git clone https://github.com
 cd panorama-external-net
 pip install -r requirements.txt
 ```
 
-### 2. Set Environment Variables
-Never hardcode your API key in the script. Export your Panorama host and API key as environment variables:
+---
+
+## Step 2: Generate Your Panorama API Key
+Never hardcode credentials or API keys inside Python scripts. First, generate your API key from Panorama using `curl`:
+
+**Linux / macOS:**
+```bash
+curl -k -X POST "https://192.168.1" --data-urlencode "user=YOUR_ADMIN_USER" --data-urlencode "password=YOUR_PASSWORD"
+```
+
+**Windows (PowerShell):**
+```powershell
+curl.exe -k -X POST "https://192.168.1" --data-urlencode "user=YOUR_ADMIN_USER" --data-urlencode "password=YOUR_PASSWORD"
+```
+Copy the long string returned between `<key>` and `</key>`.
+
+---
+
+## Step 3: Store `PANORAMA_API_KEY` as an Environment Variable
+
+### Option A: Temporary Session Variable (Quickest)
+These variables stay in your terminal's memory until you close the window.
 
 **Linux / macOS:**
 ```bash
 export PANORAMA_HOST="192.168.1.X"
-export PANORAMA_API_KEY="your_panorama_api_key"
+export PANORAMA_API_KEY="PASTE_YOUR_KEY_HERE"
 ```
 
 **Windows (PowerShell):**
 ```powershell
 \$env:PANORAMA_HOST="192.168.1.X"
-\$env:PANORAMA_API_KEY="your_panorama_api_key"
+\$env:PANORAMA_API_KEY="PASTE_YOUR_KEY_HERE"
 ```
 
-### 3. Run the Script
-By default, changes are staged in Panorama's **Candidate Configuration** so you can review them before committing:
+### Option B: Permanent User Variable (Recommended for Repeated Use)
+
+**Windows (GUI or PowerShell):**
+* **Via PowerShell:** Run the command below, then **restart your terminal or IDE** so it loads the new setting:
+  ```powershell
+  [System.Environment]::SetEnvironmentVariable("PANORAMA_API_KEY", "PASTE_YOUR_KEY_HERE", "User")
+  [System.Environment]::SetEnvironmentVariable("PANORAMA_HOST", "192.168.1.250", "User")
+  ```
+* **Via Windows Settings:** Search **Edit environment variables for your account** > under **User variables**, click **New...** > add `PANORAMA_API_KEY` and `PANORAMA_HOST` > click **OK** > restart your terminal.
+
+**Linux / macOS:**
+Add the `export` lines to your shell profile (`~/.bashrc` or `~/.zshrc`) and reload it:
 ```bash
-python3 panorama_external_net.py
+echo 'export PANORAMA_HOST="192.168.1.250"' >> ~/.bashrc
+echo 'export PANORAMA_API_KEY="PASTE_YOUR_KEY_HERE"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+*(Tip: You can verify Python detects your key anytime by running `python -c "import os; print('Key found:', bool(os.environ.get('PANORAMA_API_KEY')))"`)*
+
+---
+
+## Step 4: Run the Script
+By default, changes are staged in Panorama's **Candidate Configuration** so you can review them in the UI before committing:
+```bash
+python panorama_external_net.py
 ```
 
 To automatically commit the changes to Panorama after creation:
 ```bash
-python3 panorama_external_net.py --commit
+python panorama_external_net.py --commit
 ```
 *(Note: Pushing changes from Panorama down to managed Device Groups must still be performed via Panorama's **Commit and Push** menu.)*
 
