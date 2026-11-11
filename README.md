@@ -28,13 +28,13 @@ Never hardcode your API key in the script. Export your Panorama host and API key
 
 **Linux / macOS:**
 ```bash
-export PANORAMA_HOST="192.168.1.250"
+export PANORAMA_HOST="192.168.1.X"
 export PANORAMA_API_KEY="your_panorama_api_key"
 ```
 
 **Windows (PowerShell):**
 ```powershell
-\$env:PANORAMA_HOST="192.168.1.250"
+\$env:PANORAMA_HOST="192.168.1.X"
 \$env:PANORAMA_API_KEY="your_panorama_api_key"
 ```
 
