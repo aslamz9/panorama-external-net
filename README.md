@@ -30,12 +30,12 @@ Never hardcode credentials or API keys inside Python scripts. First, generate yo
 
 **Linux / macOS:**
 ```bash
-curl -k -X POST "https://192.168.1" --data-urlencode "user=YOUR_ADMIN_USER" --data-urlencode "password=YOUR_PASSWORD"
+curl -k -X POST "https://192.168.1.x/api/?type=keygen" --data-urlencode "user=YOUR_ADMIN_USER" --data-urlencode "password=YOUR_PASSWORD"
 ```
 
 **Windows (PowerShell):**
 ```powershell
-curl.exe -k -X POST "https://192.168.1" --data-urlencode "user=YOUR_ADMIN_USER" --data-urlencode "password=YOUR_PASSWORD"
+curl.exe -k -X POST "https://192.168.1.x/api/?type=keygen" --data-urlencode "user=YOUR_ADMIN_USER" --data-urlencode "password=YOUR_PASSWORD"
 ```
 Copy the long string returned between `<key>` and `</key>`.
 
