@@ -4,6 +4,12 @@ variable "address_group_name" {
   default     = "External_Net"
 }
 
+variable "create_address_objects" {
+  description = "Set to true to create the 31 public IPv4 address objects. Set to false to reuse existing objects in Panorama."
+  type        = bool
+  default     = true
+}
+
 variable "public_ipv4_networks" {
   description = "31 summarized public IPv4 CIDR blocks excluding RFC1918 space"
   type        = list(string)
